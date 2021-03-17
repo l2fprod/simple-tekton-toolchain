@@ -29,7 +29,7 @@ services:
     service_id: githubconsolidated
     parameters:
       repo_name: '{{toolchain.name}}'
-      source_repo_url: 'https://github.com/l2fprod/tekton-test'
+      source_repo_url: 'https://github.com/l2fprod/simple-tekton-toolchain'
       type: clone
       has_issues: true
       enable_traceability: true

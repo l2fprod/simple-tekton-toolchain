@@ -71,7 +71,7 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "https://github.com/l2fprod/tekton-test"
+      value: "https://github.com/l2fprod/simple-tekton-toolchain"
     - name: revision
       value: "master"
 ---
