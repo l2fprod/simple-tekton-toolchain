@@ -73,7 +73,7 @@ spec:
     - name: repository
       value: "https://github.com/l2fprod/simple-tekton-toolchain"
     - name: revision
-      value: "master"
+      value: "main"
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
