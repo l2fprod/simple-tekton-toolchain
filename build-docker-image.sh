@@ -29,13 +29,7 @@ else
 fi 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
-# https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
-
-# To review or change build options use:
-# bx cr build --help
-
-echo -e "Existing images in registry"
-ibmcloud cr images
+# https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-deliverypipeline_environment
 
 # Minting image tag using format: BRANCH-BUILD_NUMBER-COMMIT_ID-TIMESTAMP
 # e.g. master-3-50da6912-20181123114435

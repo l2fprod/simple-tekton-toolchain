@@ -1,6 +1,6 @@
 #!/bin/bash
 # uncomment to debug the script
-# set -x
+set -x
 # copy the script below into your app code repo (e.g. ./scripts/check_prebuild.sh) and 'source' it from your pipeline job
 #    source ./scripts/check_prebuild.sh
 # alternatively, you can source it from online script:
@@ -23,7 +23,7 @@ else
 fi 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
-# https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
+# https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-deliverypipeline_environment
 
 echo "=========================================================="
 echo "Checking for Dockerfile at the repository root"
@@ -40,35 +40,12 @@ npm install -g dockerlint
 dockerlint -f ${DOCKER_ROOT}/${DOCKER_FILE}
 
 echo "=========================================================="
-echo "Checking registry current plan and quota"
-bx cr plan
-bx cr quota
-echo "If needed, discard older images using: bx cr image-rm"
 echo "Checking registry namespace: ${REGISTRY_NAMESPACE}"
-NS=$( bx cr namespaces | grep ${REGISTRY_NAMESPACE} ||: )
+NS=$( ibmcloud cr namespaces | grep ${REGISTRY_NAMESPACE} ||: )
 if [ -z "${NS}" ]; then
     echo "Registry namespace ${REGISTRY_NAMESPACE} not found, creating it."
-    bx cr namespace-add ${REGISTRY_NAMESPACE}
+    ibmcloud cr namespace-add ${REGISTRY_NAMESPACE}
     echo "Registry namespace ${REGISTRY_NAMESPACE} created."
 else 
     echo "Registry namespace ${REGISTRY_NAMESPACE} found."
 fi
-echo -e "Existing images in registry"
-bx cr images --restrict ${REGISTRY_NAMESPACE}
-# echo "=========================================================="
-# KEEP=1
-# echo -e "PURGING REGISTRY, only keeping last ${KEEP} image(s) based on image digests"
-# COUNT=0
-# LIST=$( bx cr images --restrict ${REGISTRY_NAMESPACE}/${IMAGE_NAME} --no-trunc --format '__not_implemented__ __not_implemented__@__not_implemented__' | sort -r -u | awk '{print $2}' | sed '$ d' )
-# while read -r IMAGE_URL ; do
-#   if [[ "$COUNT" -lt "$KEEP" ]]; then
-#     echo "Keeping image digest: ${IMAGE_URL}"
-#   else
-#     bx cr image-rm "${IMAGE_URL}"
-#   fi
-#   COUNT=$((COUNT+1)) 
-# done <<< "$LIST"
-# if [[ "$COUNT" -gt 1 ]]; then
-#   echo "Content of image registry"
-#   bx cr images
-# fi

@@ -35,7 +35,7 @@ echo "IMAGE_TAG=${IMAGE_TAG}"
 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
-# https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
+# https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-deliverypipeline_environment
 
 ibmcloud cr images --restrict ${REGISTRY_NAMESPACE}/${IMAGE_NAME}
 echo -e "Checking vulnerabilities in image: ${PIPELINE_IMAGE_URL}"
@@ -54,7 +54,7 @@ do
   sleep 10
 done
 set +e
-bx cr va -e ${PIPELINE_IMAGE_URL}
+ibmcloud cr va -e ${PIPELINE_IMAGE_URL}
 set -e
-STATUS=$( bx cr va -e -o json ${PIPELINE_IMAGE_URL} | jq -r '.[0].status' )
+STATUS=$( ibmcloud cr va -e -o json ${PIPELINE_IMAGE_URL} | jq -r '.[0].status' )
 [[ ${STATUS} == "OK" ]] || [[ ${STATUS} == "UNSUPPORTED" ]] || [[ ${STATUS} == "WARN" ]] || { echo "ERROR: The vulnerability scan was not successful, check the OUTPUT of the command and try again."; return 1; }
