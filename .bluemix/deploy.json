@@ -127,20 +127,20 @@
       "url": "/devops/validator/validator-v1.html"
     },
     {
-      "type": "text",
-      "readonly": false,
-      "title": {
-        "$ref": "#/messages/deploy.appName"
-      },
-      "key": "app-name"
-    },
-    {
       "type": "password",
       "readonly": false,
       "title": {
         "$ref": "#/messages/deploy.apikey"
       },
       "key": "api-key"
+    },
+    {
+      "type": "text",
+      "readonly": false,
+      "title": {
+        "$ref": "#/messages/deploy.appName"
+      },
+      "key": "app-name"
     },
     {
       "type": "table",
