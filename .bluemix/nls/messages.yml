@@ -10,14 +10,14 @@ deploy.longDescription: "The Delivery Pipeline automates continuous build, test 
 deploy.apikeyDescription: "The API key is used to access IBM Cloud APIs. You can obtain your API key with 'ibmcloud iam api-key-create' or via the console at https://cloud.ibm.com/iam/apikeys by clicking **Create an IBM Cloud API key** (Each API key only can be viewed once)."
 deploy.apikey: "IBM Cloud API Key"
 
-deploy.baseNameDescription: "A prefix used to name all resources created by this toolchain"
+deploy.baseNameDescription: "A prefix used to name all resources created by this toolchain."
 deploy.baseName: "Prefix for resources to be created"
 
 deploy.resourceGroup: "Resource Group"
-deploy.resourceGroupDescription: "The IBM Cloud resource group where existing resources will be found and new resources will be created"
+deploy.resourceGroupDescription: "The IBM Cloud resource group where existing resources will be found and new resources will be created."
 
 deploy.region: "Region"
-deploy.regionDescription: "Region where existing resources are located and new resources will be created"
+deploy.regionDescription: "Region where existing resources are located and new resources will be created."
 
 # deploy.registryRegionDescription: "The IBM Cloud region for image registry"
 # deploy.registrynsDescription: "The namespace in the container image registry. You can set it up with {ibmcloud cr namespace-add]. Learn more at https://cloud.ibm.com/docs/Registry/index.html."
