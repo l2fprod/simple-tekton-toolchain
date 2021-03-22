@@ -5,12 +5,12 @@ inputs:
   service: ${GIT_REPO}
   path: .tekton
 triggers:
-- type: git
-  name: Git PR Trigger
-  service: ${GIT_REPO}
-  branch: main
-  events: {"push":true,"pull_request":true,"pull_request_closed":false}
-  eventListener: listener
+# - type: git
+#   name: Git PR Trigger
+#   service: ${GIT_REPO}
+#   branch: main
+#   events: {"push":true,"pull_request":true,"pull_request_closed":false}
+#   eventListener: listener
 - type: manual
   name: Manual Trigger
   eventListener: listener
@@ -24,7 +24,7 @@ properties:
 - name: apikey
   value: ${API_KEY}
   type: SECURE
-- name: baseName:
+- name: baseName
   value: ${INPUT_BASENAME}
 # - name: cluster
 #   value: ${PROD_CLUSTER_NAME}
