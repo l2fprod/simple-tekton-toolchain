@@ -5,9 +5,7 @@ metadata:
 spec:
   params:
     - name: repository
-      default: $(params.repository)
     - name: revision
-      default: $(params.revision)
     - name: apikey
     - name: base-name
     - name: resource-group
@@ -50,9 +48,9 @@ spec:
               claimName: pipelinerun-$(uid)-pvc
         params:
         - name: repository
-          value: $(tt.params.repository)
+          value: $(params.repository)
         - name: revision
-          value: $(tt.params.revision)
+          value: $(params.revision)
         - name: apikey
           value: $(params.apikey)
         - name: base-name
@@ -79,9 +77,9 @@ metadata:
 spec:
   params:
     - name: repository
-      value: $(body.repository.url)
+      value: $(event.repository.html_url)
     - name: revision
-      value: $(body.head_commit.id)
+      value: $(event.after)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
