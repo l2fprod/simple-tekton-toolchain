@@ -9,7 +9,7 @@ spec:
     - name: revision
       default: $(params.revision)
     - name: apikey
-    - name: baseName
+    - name: base-name
     - name: resourceGroup
     - name: region
     # - name: registryNamespace
@@ -55,8 +55,8 @@ spec:
           value: $(tt.params.revision)
         - name: apikey
           value: $(params.apikey)
-        - name: baseName
-          value: $(params.baseName)
+        - name: base-name
+          value: $(params.base-name)
         - name: resourceGroup
           value: $(params.resourceGroup)
         - name: region
@@ -79,9 +79,9 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "$(body.repository.url)"
+      value: $(body.repository.url)
     - name: revision
-      value: "$(body.head_commit.id)"
+      value: $(body.head_commit.id)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener

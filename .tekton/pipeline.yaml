@@ -7,7 +7,7 @@ spec:
     - name: repository
     - name: revision
     - name: apikey
-    - name: baseName
+    - name: base-name
     - name: resourceGroup
     - name: region
     # - name: registryNamespace
@@ -36,8 +36,8 @@ spec:
           value: $(params.revision)
         - name: apikey
           value: $(params.apikey)
-        - name: baseName
-          value: $(params.baseName)
+        - name: base-name
+          value: $(params.base-name)
         - name: resourceGroup
           value: $(params.resourceGroup)
         - name: region

@@ -7,7 +7,7 @@ spec:
     - name: repository
     - name: revision
     - name: apikey
-    - name: baseName
+    - name: base-name
     - name: resourceGroup
     - name: region
   workspaces:
@@ -22,7 +22,7 @@ spec:
         - name: REVISION
           value: $(params.revision)
         - name: INPUT_BASENAME
-          value: $(params.baseName)
+          value: $(params.base-name)
         - name: INPUT_RESOURCE_GROUP
           value: $(params.resourceGroup)
         - name: INPUT_REGION
