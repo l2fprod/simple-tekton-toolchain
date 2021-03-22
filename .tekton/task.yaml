@@ -24,6 +24,8 @@ spec:
           value: $(params.baseName)
         - name: INPUT_RESOURCE_GROUP
           value: $(params.resourceGroup)
+        - name: INPUT_REGION
+          value: $(params.region)
       command: ["/bin/sh", "-c"]
       args:
         - set -e -o pipefail;

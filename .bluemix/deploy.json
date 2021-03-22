@@ -48,12 +48,26 @@
           ]
         }
       }
+    },
+    "region": {
+      "description": {
+        "$ref": "#/messages/deploy.regionDescription"
+      },
+      "type": "string",
+      "disabled": false,
+      "validator": {
+        "v-type": "k8s-region",
+        "params": [
+          "api-key"
+        ]
+      }
     }
   },
   "required": [
     "api-key",
     "base-name",
-    "resource-group"
+    "resource-group",
+    "region"
   ],
   "form": [
     {
@@ -82,6 +96,13 @@
       "key": "resource-group",
       "title": {
         "$ref": "#/messages/deploy.resourceGroup"
+      }
+    },
+    {
+      "type": "select",
+      "key": "region",
+      "title": {
+        "$ref": "#/messages/deploy.region"
       }
     }
   ]

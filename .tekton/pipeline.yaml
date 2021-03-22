@@ -9,6 +9,7 @@ spec:
     - name: apikey
     - name: baseName
     - name: resourceGroup
+    - name: region
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
     # - name: cluster
@@ -39,6 +40,8 @@ spec:
           value: $(params.baseName)
         - name: resourceGroup
           value: $(params.resourceGroup)
+        - name: region
+          value: $(params.region)
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc

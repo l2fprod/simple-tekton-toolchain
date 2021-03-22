@@ -14,7 +14,10 @@ deploy.baseNameDescription: "A prefix used to name all resources created by this
 deploy.baseName: "Prefix for resources to be created"
 
 deploy.resourceGroup: "Resource Group"
-deploy.resourceGroupDescription: "The IBM Cloud resource group where existing resources will be found and new resources created"
+deploy.resourceGroupDescription: "The IBM Cloud resource group where existing resources will be found and new resources will be created"
+
+deploy.region: "Region"
+deploy.regionDescription: "Region where existing resources are located and new resources will be created"
 
 # deploy.registryRegionDescription: "The IBM Cloud region for image registry"
 # deploy.registrynsDescription: "The namespace in the container image registry. You can set it up with {ibmcloud cr namespace-add]. Learn more at https://cloud.ibm.com/docs/Registry/index.html."
