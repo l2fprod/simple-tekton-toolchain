@@ -74,9 +74,9 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "https://github.com/l2fprod/simple-tekton-toolchain"
+      value: $(params.repository)
     - name: revision
-      value: "main"
+      value: $(params.revision)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
