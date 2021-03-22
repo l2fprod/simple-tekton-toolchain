@@ -29,8 +29,8 @@ services:
       repo_name: '{{toolchain.name}}'
       source_repo_url: 'https://github.com/l2fprod/simple-tekton-toolchain'
       type: clone
-      has_issues: true
-      enable_traceability: true
+      has_issues: false
+      enable_traceability: false
   build:
     service_id: pipeline
     parameters:
