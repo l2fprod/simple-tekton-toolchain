@@ -45,7 +45,7 @@ services:
         env:
           GIT_REPO: repo
           GIT_REPO_URL: '{{services.repo.parameters.source_repo_url}}'
-          GIT_REVISION: main
+          GIT_BRANCH: main
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           INPUT_BASENAME: '{{form.pipeline.parameters.base-name}}'
           INPUT_RESOURCE_GROUP: '{{form.pipeline.parameters.resource-group}}'

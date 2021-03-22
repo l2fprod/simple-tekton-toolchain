@@ -1,16 +1,16 @@
 ---
 inputs:
 - type: git
-  branch: main
+  branch: ${GIT_BRANCH}
   service: ${GIT_REPO}
   path: .tekton
 triggers:
-# - type: git
-#   name: Git PR Trigger
-#   service: ${GIT_REPO}
-#   branch: main
-#   events: {"push":true,"pull_request":true,"pull_request_closed":false}
-#   eventListener: listener
+- type: git
+  name: Git Trigger
+  service: ${GIT_REPO}
+  branch: ${GIT_BRANCH}
+  events: {"push":true,"pull_request":false,"pull_request_closed":false}
+  eventListener: listener
 - type: manual
   name: Manual Trigger
   eventListener: listener
@@ -19,7 +19,7 @@ properties:
   value: ${GIT_REPO_URL}
   type: text
 - name: revision
-  value: ${GIT_REVISION}
+  value: ${GIT_BRANCH}
   type: text
 - name: apikey
   value: ${API_KEY}
