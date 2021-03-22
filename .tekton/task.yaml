@@ -8,7 +8,7 @@ spec:
     - name: revision
     - name: apikey
     - name: base-name
-    - name: resourceGroup
+    - name: resource-group
     - name: region
   workspaces:
   - name: task-pvc
@@ -24,7 +24,7 @@ spec:
         - name: INPUT_BASENAME
           value: $(params.base-name)
         - name: INPUT_RESOURCE_GROUP
-          value: $(params.resourceGroup)
+          value: $(params.resource-group)
         - name: INPUT_REGION
           value: $(params.region)
       command: ["/bin/sh", "-c"]

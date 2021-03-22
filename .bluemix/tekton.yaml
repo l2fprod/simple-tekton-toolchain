@@ -27,7 +27,7 @@ properties:
 - name: base-name
   value: ${INPUT_BASENAME}
   type: text
-- name: resourceGroup
+- name: resource-group
   value: ${INPUT_RESOURCE_GROUP}
   type: text
 - name: region

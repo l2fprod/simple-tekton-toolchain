@@ -10,7 +10,7 @@ spec:
       default: $(params.revision)
     - name: apikey
     - name: base-name
-    - name: resourceGroup
+    - name: resource-group
     - name: region
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
@@ -57,8 +57,8 @@ spec:
           value: $(params.apikey)
         - name: base-name
           value: $(params.base-name)
-        - name: resourceGroup
-          value: $(params.resourceGroup)
+        - name: resource-group
+          value: $(params.resource-group)
         - name: region
           value: $(params.region)
         # - name: registryNamespace
