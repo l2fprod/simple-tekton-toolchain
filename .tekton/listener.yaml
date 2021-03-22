@@ -10,19 +10,20 @@ spec:
       description: the branch for the git repo
     - name: apikey
       description: the ibmcloud api key
-    - name: registryNamespace
-      description: the ibmcloud registry namespace
-    - name: registryRegion
-      description: the ibmcloud registry region
-      default: us-south
-    - name: cluster
-      description: The IBM Cloud Kubernetes cluster name
-    - name: clusterRegion
-      description: The IBM Cloud Kubernetes cluster region
-      default: us-south
-    - name: clusterNamespace
-      description: The Kubernetes cluster namespace
-      default: prod
+    - name: baseName
+    # - name: registryNamespace
+    #   description: the ibmcloud registry namespace
+    # - name: registryRegion
+    #   description: the ibmcloud registry region
+    #   default: us-south
+    # - name: cluster
+    #   description: The IBM Cloud Kubernetes cluster name
+    # - name: clusterRegion
+    #   description: The IBM Cloud Kubernetes cluster region
+    #   default: us-south
+    # - name: clusterNamespace
+    #   description: The Kubernetes cluster namespace
+    #   default: prod
   resourcetemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -53,16 +54,18 @@ spec:
           value: $(params.revision)
         - name: apikey
           value: $(params.apikey)
-        - name: registryNamespace
-          value: $(params.registryNamespace)
-        - name: registryRegion
-          value: $(params.registryRegion)
-        - name: cluster
-          value: $(params.cluster)
-        - name: clusterRegion
-          value: $(params.clusterRegion)
-        - name: clusterNamespace
-          value: $(params.clusterNamespace)
+        - name: baseName
+          value: $(params.baseName)
+        # - name: registryNamespace
+        #   value: $(params.registryNamespace)
+        # - name: registryRegion
+        #   value: $(params.registryRegion)
+        # - name: cluster
+        #   value: $(params.cluster)
+        # - name: clusterRegion
+        #   value: $(params.clusterRegion)
+        # - name: clusterNamespace
+        #   value: $(params.clusterNamespace)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding

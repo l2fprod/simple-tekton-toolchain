@@ -44,20 +44,20 @@ services:
           $text: tekton.yaml
         env:
           GIT_REPO: repo
-          CF_APP_NAME: '{{form.pipeline.parameters.app-name}}'
-          REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
-          REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
+          GIT_REPO_URL: '{{services.repo.parameters.source_repo_url}}'
+          GIT_REVISION: main
           API_KEY: '{{form.pipeline.parameters.api-key}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          PROD_CLUSTER_NAME: '{{form.pipeline.parameters.prod-cluster-name}}'
-          PROD_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.prod-cluster-namespace}}'
-          REPOSITORY: '{{services.repo.parameters.source_repo_url}}'
-          REVISION: main
+          INPUT_BASENAME: '{{form.pipeline.parameters.base-name}}'
+          # REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
+          # REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
+          # PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          # PROD_CLUSTER_NAME: '{{form.pipeline.parameters.prod-cluster-name}}'
+          # PROD_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.prod-cluster-namespace}}'
         execute: Manual Trigger
 form:
   pipeline:
     parameters:
-      app-name: '{{services.repo.parameters.repo_name}}'
+      base-name: '{{services.repo.parameters.repo_name}}'
       prod-cluster-namespace: prod
     schema:
       $ref: deploy.json

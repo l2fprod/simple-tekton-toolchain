@@ -103,16 +103,16 @@
       "type": "string",
       "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
     },
-    "app-name": {
+    "base-name": {
       "description": {
-        "$ref": "#/messages/deploy.appDescription"
+        "$ref": "#/messages/deploy.baseNameDescription"
       },
       "type": "string",
       "pattern": "\\S"
     }
   },
   "required": [
-    "app-name",
+    "base-name",
     "api-key",
     "registry-region",
     "registry-namespace",
@@ -138,9 +138,9 @@
       "type": "text",
       "readonly": false,
       "title": {
-        "$ref": "#/messages/deploy.appName"
+        "$ref": "#/messages/deploy.baseName"
       },
-      "key": "app-name"
+      "key": "base-name"
     },
     {
       "type": "table",

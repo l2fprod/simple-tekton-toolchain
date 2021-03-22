@@ -6,8 +6,9 @@ template.gettingStarted: " **Your toolchain is ready!**\n**Quick start:** Commit
 deploy.title: "Hello World Deploy Stage"
 deploy.description: "hello-world simple toolchain"
 deploy.longDescription: "The Delivery Pipeline automates continuous build, test and deploy of the Docker application."
-deploy.appDescription: "The name of your app"
-deploy.appName: "App name"
+
+deploy.baseNameDescription: "A prefix used to name all resources created by this toolchain"
+deploy.baseName: "Prefix for resources to be created"
 
 deploy.apikeyDescription: "The API key is used to access IBM Cloud APIs. You can obtain your API key with 'ibmcloud iam api-key-create' or via the console at https://cloud.ibm.com/iam/apikeys by clicking **Create an IBM Cloud API key** (Each API key only can be viewed once)."
 deploy.apikey: "IBM Cloud API Key"
