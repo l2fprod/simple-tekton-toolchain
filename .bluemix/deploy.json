@@ -30,11 +30,30 @@
       },
       "type": "string",
       "pattern": "\\S"
+    },
+    "resource-group": {
+      "description": {
+        "$ref": "#/messages/deploy.resourceGroupDescription"
+      },
+      "type": "string",
+      "validator": {
+        "v-type": "resource-group",
+        "params": [
+          "api-key"
+        ],
+        "validator": {
+          "v-type": "resource-group",
+          "params": [
+            "api-key"
+          ]
+        }
+      }
     }
   },
   "required": [
     "api-key",
-    "base-name"
+    "base-name",
+    "resource-group"
   ],
   "form": [
     {
@@ -56,6 +75,14 @@
         "$ref": "#/messages/deploy.baseName"
       },
       "key": "base-name"
+    },
+    {
+      "type": "select",
+      "readonly": false,
+      "key": "resource-group",
+      "title": {
+        "$ref": "#/messages/deploy.resourceGroup"
+      }
     }
   ]
 }

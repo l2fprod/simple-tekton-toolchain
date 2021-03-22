@@ -27,6 +27,9 @@ properties:
 - name: baseName
   value: ${INPUT_BASENAME}
   type: text
+- name: resourceGroup
+  value: ${INPUT_RESOURCE_GROUP}
+  type: text
 # - name: cluster
 #   value: ${PROD_CLUSTER_NAME}
 #   type: text 

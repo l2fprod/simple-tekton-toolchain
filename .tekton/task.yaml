@@ -5,13 +5,10 @@ metadata:
 spec:
   params:
     - name: repository
-      description: the git repo
     - name: revision
-      description: the revision
-      default: main
     - name: apikey
-      description: the ibmcloud api key
     - name: baseName
+    - name: resourceGroup
   workspaces:
   - name: task-pvc
     mountPath: /artifacts
@@ -25,12 +22,15 @@ spec:
           value: $(params.revision)
         - name: INPUT_BASENAME
           value: $(params.baseName)
+        - name: INPUT_RESOURCE_GROUP
+          value: $(params.resourceGroup)
       command: ["/bin/sh", "-c"]
       args:
         - set -e -o pipefail;
+          echo "Environment:"
+          env | sort;
           echo "Cloning $REPOSITORY";
           cd /workspace && git clone -q -b $REVISION $REPOSITORY .;
-          env | sort;
 # ---
 # apiVersion: tekton.dev/v1beta1
 # kind: Task

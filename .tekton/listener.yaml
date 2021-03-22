@@ -5,12 +5,10 @@ metadata:
 spec:
   params:
     - name: repository
-      description: The git repo
     - name: revision
-      description: the branch for the git repo
     - name: apikey
-      description: the ibmcloud api key
     - name: baseName
+    - name: resourceGroup
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
     # - name: registryRegion
@@ -56,6 +54,8 @@ spec:
           value: $(params.apikey)
         - name: baseName
           value: $(params.baseName)
+        - name: resourceGroup
+          value: $(params.resourceGroup)
         # - name: registryNamespace
         #   value: $(params.registryNamespace)
         # - name: registryRegion

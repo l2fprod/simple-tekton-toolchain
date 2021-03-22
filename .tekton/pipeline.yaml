@@ -5,13 +5,10 @@ metadata:
 spec:
   params:
     - name: repository
-      description: the git repo
     - name: revision
-      description: the branch for the git repo
     - name: apikey
-      description: the ibmcloud api key
     - name: baseName
-      description: prefix for all resources to create
+    - name: resourceGroup
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
     # - name: cluster
@@ -40,9 +37,11 @@ spec:
           value: $(params.apikey)
         - name: baseName
           value: $(params.baseName)
+        - name: resourceGroup
+          value: $(params.resourceGroup)
       workspaces:
       - name: task-pvc
-        workspace: pipeline-pvc          
+        workspace: pipeline-pvc
     # - name: pipeline-build-task
     #   taskRef:
     #     name: build-task
