@@ -11,6 +11,7 @@ spec:
     - name: apikey
       description: the ibmcloud api key
     - name: baseName
+      description: prefix for all resources to create
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
     # - name: cluster
