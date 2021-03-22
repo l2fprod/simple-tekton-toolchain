@@ -9,6 +9,7 @@ spec:
     - name: apikey
     - name: baseName
     - name: resourceGroup
+    - name: region
   workspaces:
   - name: task-pvc
     mountPath: /artifacts
