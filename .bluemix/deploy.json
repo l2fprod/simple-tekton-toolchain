@@ -61,13 +61,28 @@
           "api-key"
         ]
       }
+    },
+    "cluster-name": {
+      "description": {
+        "$ref": "#/messages/deploy.clusterNameDescription"
+      },
+      "type": "string",
+      "pattern": "\\S",
+      "validator": {
+        "v-type": "k8s-cluster-name",
+        "params": [
+          "resource-group",
+          "region"
+        ]
+      }
     }
   },
   "required": [
     "api-key",
     "base-name",
     "resource-group",
-    "region"
+    "region",
+    "cluster-name"
   ],
   "form": [
     {
@@ -103,6 +118,14 @@
       "key": "region",
       "title": {
         "$ref": "#/messages/deploy.region"
+      }
+    },
+    {
+      "type": "select",
+      "key": "cluster-name",
+      "readonly": false,
+      "title": {
+        "$ref": "#/messages/deploy.clusterName"
       }
     }
   ]

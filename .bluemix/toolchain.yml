@@ -50,6 +50,7 @@ services:
           INPUT_BASENAME: '{{form.pipeline.parameters.base-name}}'
           INPUT_RESOURCE_GROUP: '{{form.pipeline.parameters.resource-group}}'
           INPUT_REGION: '{{form.pipeline.parameters.region}}'
+          INPUT_CLUSTER_NAME: '{{form.pipeline.parameters.cluster-name}}'
           # REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
           # REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
           # PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
