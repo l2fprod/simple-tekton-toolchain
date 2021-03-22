@@ -77,9 +77,9 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "$(event.repository.url)"
+      value: "$(body.repository.url)"
     - name: revision
-      value: "$(event.head_commit.id)"
+      value: "$(body.head_commit.id)"
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
