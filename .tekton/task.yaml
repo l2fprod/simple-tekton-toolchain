@@ -11,6 +11,7 @@ spec:
       default: main
     - name: apikey
       description: the ibmcloud api key
+    - name: baseName
   workspaces:
   - name: task-pvc
     mountPath: /artifacts
