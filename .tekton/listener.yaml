@@ -10,6 +10,7 @@ spec:
     - name: base-name
     - name: resource-group
     - name: region
+    - name: cluster-name
     # - name: registryNamespace
     #   description: the ibmcloud registry namespace
     # - name: registryRegion
@@ -59,6 +60,8 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
+        - name: cluster-name
+          value: $(params.cluster-name)
         # - name: registryNamespace
         #   value: $(params.registryNamespace)
         # - name: registryRegion

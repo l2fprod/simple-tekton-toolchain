@@ -10,6 +10,7 @@ spec:
     - name: base-name
     - name: resource-group
     - name: region
+    - name: cluster-name
   workspaces:
   - name: task-pvc
     mountPath: /artifacts
@@ -27,6 +28,8 @@ spec:
           value: $(params.resource-group)
         - name: INPUT_REGION
           value: $(params.region)
+        - name: INPUT_CLUSTER_NAME
+          value: $(params.cluster-name)
       command: ["/bin/sh", "-c"]
       args:
         - set -e -o pipefail;
