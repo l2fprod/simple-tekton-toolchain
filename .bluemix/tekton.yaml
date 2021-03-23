@@ -10,10 +10,10 @@ triggers:
   service: ${GIT_REPO}
   branch: ${GIT_BRANCH}
   events: {"push":true,"pull_request":false,"pull_request_closed":false}
-  eventListener: listener
+  eventListener: git-listener
 - type: manual
   name: Manual Trigger
-  eventListener: listener
+  eventListener: manual-listener
 properties:
 - name: repository
   value: ${GIT_REPO_URL}

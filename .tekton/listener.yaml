@@ -5,9 +5,7 @@ metadata:
 spec:
   params:
     - name: repository
-      default: $(params.repository)
     - name: revision
-      default: $(params.revision)
     - name: apikey
     - name: base-name
     - name: resource-group
@@ -78,7 +76,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: binding
+  name: git-binding
 spec:
   params:
     - name: repository
@@ -89,10 +87,32 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: listener
+  name: git-listener
 spec:
   triggers:
     - binding:
-        name: binding
+        name: git-binding
+      template:
+        name: template
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: manual-binding
+spec:
+  params:
+    - name: repository
+      value: $(params.repository)
+    - name: revision
+      value: $(params.revision)
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: manual-listener
+spec:
+  triggers:
+    - binding:
+        name: manual-binding
       template:
         name: template
