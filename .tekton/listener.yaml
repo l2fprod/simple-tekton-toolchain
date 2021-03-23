@@ -6,7 +6,6 @@ spec:
   params:
     - name: repository
     - name: revision
-      value: $(tt.params.revision)
     - name: apikey
     - name: base-name
     - name: resource-group
@@ -52,7 +51,7 @@ spec:
         - name: repository
           value: $(params.repository)
         - name: revision
-          value: $(params.revision)
+          value: $(tt.params.revision)
         - name: apikey
           value: $(params.apikey)
         - name: base-name
