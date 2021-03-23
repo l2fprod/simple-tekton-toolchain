@@ -69,7 +69,16 @@ services:
 form:
   pipeline:
     parameters:
-      base-name: '{{services.code-repo.parameters.repo_name}}'
-      cluster-namespace: 'default'
+      # allow initialization from environment, i.e from the URL quey parameters
+      api-key: '{{apiKey}}'
+      base-name: >
+        $env.baseName ? '{{baseName}}' : '{{services.code-repo.parameters.repo_name}}'
+      resource-group: '{{resourceGroup}}'
+      region: '{{region}}'
+      cluster-name: '{{clusterName}}'
+      cluster-namespace: >
+        $env.clusterNamespace ? '{{clusterNamespace}}' : 'default'
+      registry-namespace: '{{registry-namespace}}'
+      schematics-workspace-id: '{{schematics-workspace-id}}'
     schema:
       $ref: deploy.json
