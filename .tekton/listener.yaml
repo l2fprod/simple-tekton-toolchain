@@ -49,7 +49,7 @@ spec:
               claimName: pipelinerun-$(uid)-pvc
         params:
         - name: repository
-          value: $(params.repository)
+          value: $(tt.params.repository)
         - name: revision
           value: $(tt.params.revision)
         - name: apikey
@@ -80,7 +80,7 @@ metadata:
 spec:
   params:
     - name: repository
-      value: $(body.repository.html_url)
+      value: $(event.repository.html_url)
     - name: revision
       value: $(event.after)
 ---
