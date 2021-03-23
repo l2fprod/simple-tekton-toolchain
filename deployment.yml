@@ -15,8 +15,6 @@ spec:
       containers:
       - name: hello-app
         image: $IMAGE_URL
-        # for local development against minikube registry
-        #imagePullPolicy: Never        
         ports:
         - containerPort: 8080
 ---

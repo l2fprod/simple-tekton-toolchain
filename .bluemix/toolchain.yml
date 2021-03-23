@@ -55,7 +55,7 @@ services:
         env:
           GIT_REPO: code-repo
           GIT_REPO_URL: '{{services.code-repo.parameters.source_repo_url}}'
-          GIT_BRANCH: main
+          GIT_BRANCH: $env.branch
           TEKTON_CATALOG_REPO: tekton-catalog-repo
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           INPUT_BASENAME: '{{form.pipeline.parameters.base-name}}'

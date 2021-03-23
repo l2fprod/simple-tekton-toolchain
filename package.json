@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "description": "Basic hello world application for Node.js",
-  "author": "Robbie Minshall <rjminsha@us.ibm.com>",
   "dependencies": {
     "express": "4.17.1",
     "mocha": "*",
