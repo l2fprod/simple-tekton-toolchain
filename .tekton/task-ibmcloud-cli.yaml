@@ -34,7 +34,8 @@ spec:
       mountPath: /artifacts
   steps:
     - name: execute
-      image: ibmcom/pipeline-base-image:3.0
+      image: l2fprod/ibmcloud-ci:latest
+      #ibmcom/pipeline-base-image:3.0
       workingDir: /artifacts
       env:
         - name: BUILD_NUMBER
