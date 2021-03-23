@@ -11,8 +11,7 @@ spec:
     - name: resource-group
     - name: region
     - name: cluster-name
-    # - name: registryNamespace
-    #   description: the ibmcloud registry namespace
+    - name: registry-namespace
     # - name: registryRegion
     #   description: the ibmcloud registry region
     #   default: us-south
@@ -62,6 +61,8 @@ spec:
           value: $(params.region)
         - name: cluster-name
           value: $(params.cluster-name)
+        - name: registry-namespace
+          value: $(params.registry-namespace)
         # - name: registryNamespace
         #   value: $(params.registryNamespace)
         # - name: registryRegion

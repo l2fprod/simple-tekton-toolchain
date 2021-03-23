@@ -75,6 +75,20 @@
           "region"
         ]
       }
+    },
+    "registry-namespace": {
+      "description": {
+        "$ref": "#/messages/deploy.registrynsDescription"
+      },
+      "type": "string",
+      "pattern": "^[a-z0-9][-_a-z0-9]{2,28}[a-z0-9]$",
+      "validator": {
+        "v-type": "k8s-registry-namespace",
+        "params": [
+          "region"
+        ],
+        "validate": false
+      }
     }
   },
   "required": [
@@ -82,7 +96,8 @@
     "base-name",
     "resource-group",
     "region",
-    "cluster-name"
+    "cluster-name",
+    "registry-namespace"
   ],
   "form": [
     {
@@ -127,6 +142,14 @@
       "title": {
         "$ref": "#/messages/deploy.clusterName"
       }
+    },
+    {
+      "type": "select",
+      "readonly": false,
+      "title": {
+        "$ref": "#/messages/deploy.registryns"
+      },
+      "key": "registry-namespace"
     }
   ]
 }
