@@ -1,4 +1,4 @@
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: template
@@ -56,7 +56,7 @@ spec:
         - name: registry-namespace
           value: $(params.registry-namespace)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: git-binding
@@ -67,7 +67,7 @@ spec:
     - name: revision
       value: $(event.after)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: git-listener
@@ -78,7 +78,7 @@ spec:
       template:
         name: template
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: manual-binding
@@ -89,7 +89,7 @@ spec:
     - name: revision
       value: $(params.revision)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: manual-listener

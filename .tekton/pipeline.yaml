@@ -16,27 +16,6 @@ spec:
   workspaces:
   - name: pipeline-pvc
   tasks:
-    # - name: show-environment
-    #   taskRef:
-    #     name: show-env-task
-    #   params:
-    #     - name: repository
-    #       value: $(params.repository)
-    #     - name: revision
-    #       value: $(params.revision)
-    #     - name: apikey
-    #       value: $(params.apikey)
-    #     - name: base-name
-    #       value: $(params.base-name)
-    #     - name: resource-group
-    #       value: $(params.resource-group)
-    #     - name: region
-    #       value: $(params.region)
-    #     - name: cluster-name
-    #       value: $(params.cluster-name)
-    #   workspaces:
-    #   - name: task-pvc
-    #     workspace: pipeline-pvc
     - name: clone-repo
       taskRef:
         name: git-clone-repo
@@ -81,68 +60,11 @@ spec:
           value: "$(tasks.build-image.results.image-repository):latest"
         - name: script
           value: |
-            ls -la
-            kubectl cluster-info
             cat deployment.yml | \
               IMAGE_URL=$PIPELINE_IMAGE_URL \
               envsubst '$IMAGE_URL' \
               | \
               kubectl apply --namespace $(params.cluster-namespace) -f - || exit 1
-        - name: pipeline-debug
-          value: "1"
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
-    # - name: pipeline-build-task
-    #   taskRef:
-    #     name: build-task
-    #   params:
-    #     - name: repository
-    #       value: $(params.repository)
-    #     - name: revision
-    #       value: $(params.revision)
-    #     - name: apikey
-    #       value: $(params.apikey)
-    #     - name: registryNamespace
-    #       value: $(params.registryNamespace)
-    #     - name: registryRegion
-    #       value: $(params.registryRegion)
-    #   workspaces:
-    #   - name: task-pvc
-    #     workspace: pipeline-pvc          
-    # - name: pipeline-validate-task
-    #   runAfter: [pipeline-build-task]
-    #   taskRef:
-    #     name: validate-task
-    #   params:
-    #     - name: repository
-    #       value: $(params.repository)
-    #     - name: revision
-    #       value: $(params.revision)
-    #     - name: apikey
-    #       value: $(params.apikey)
-    #     - name: registryRegion
-    #       value: $(params.registryRegion)
-    #   workspaces:
-    #   - name: task-pvc
-    #     workspace: pipeline-pvc            
-    # - name: pipeline-deploy-task
-    #   runAfter: [pipeline-validate-task]
-    #   taskRef:
-    #     name: deploy-task
-    #   params:
-    #     - name: repository
-    #       value: $(params.repository)
-    #     - name: revision
-    #       value: $(params.revision)
-    #     - name: apikey
-    #       value: $(params.apikey)
-    #     - name: cluster
-    #       value: $(params.cluster)
-    #     - name: clusterRegion
-    #       value: $(params.clusterRegion)
-    #     - name: clusterNamespace
-    #       value: $(params.clusterNamespace)
-    #   workspaces:
-    #   - name: task-pvc
-    #     workspace: pipeline-pvc  
