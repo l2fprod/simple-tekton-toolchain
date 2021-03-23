@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cleanup-pipeline
+spec:
+  params:
+    - name: repository
+    - name: revision
+    - name: apikey
+    - name: base-name
+    - name: resource-group
+    - name: region
+    - name: cluster-name
+    - name: cluster-namespace
+    - name: registry-namespace
+  workspaces:
+  - name: cleanup-pvc
+  tasks:
+    - name: clone-repo
+      taskRef:
+        name: git-clone-repo
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: branch
+          value: ""
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+      - name: output
+        workspace: cleanup-pvc
+    - name: cleanup-commands
+      taskRef:
+        name: ibmcloud-cli
+      runAfter: [clone-repo]
+      params:
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: script
+          value: |
+            set +e
+            ibmcloud ks cluster config --cluster $(params.cluster-name)
+            cat deployment.yml | (kubectl delete --namespace $(params.cluster-namespace) -f - || true)
+
+            REGISTRY_URL=$(ibmcloud cr info | grep -m1 -i '^Container Registry' | awk '{print $3;}')
+            IMAGE_URL="${REGISTRY_URL}/$(params.registry-namespace)/$(params.base-name)-image"
+            ibmcloud cr image-rm $IMAGE_URL:latest || true
+      workspaces:
+      - name: artifacts
+        workspace: cleanup-pvc
