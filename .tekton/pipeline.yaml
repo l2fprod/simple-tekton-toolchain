@@ -48,6 +48,17 @@ spec:
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc
+    - name: build-image
+      taskRef:
+        name: icr-containerize
+      params:
+        - name: image-url
+          value: us.icr.io/scratch/simple-tekton-toolchain:latest
+        - name: resource-group
+          value: $(params.resource-group)
+      workspaces:
+      - name: source
+        workspace: pipeline-pvc
     # - name: pipeline-build-task
     #   taskRef:
     #     name: build-task
