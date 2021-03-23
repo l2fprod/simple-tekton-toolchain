@@ -120,8 +120,9 @@ spec:
           value: $(params.region)
         - name: script
           value: |
+            set +e
             ibmcloud ks cluster config --cluster $(params.cluster-name)
-            cat deployment.yml | kubectl delete --namespace $(params.cluster-namespace) -f - || true
+            cat deployment.yml | (kubectl delete --namespace $(params.cluster-namespace) -f - || true)
 
             REGISTRY_URL=$(ibmcloud cr info | grep -m1 -i '^Container Registry' | awk '{print $3;}')
             IMAGE_URL="${REGISTRY_URL}/$(params.registry-namespace)/$(params.base-name)-image"
