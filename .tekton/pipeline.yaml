@@ -96,7 +96,7 @@ spec:
             ls -la
             kubectl cluster-info
         - name: pipeline-debug
-          value: true
+          value: "1"
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
