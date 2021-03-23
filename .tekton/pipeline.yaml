@@ -27,30 +27,44 @@ spec:
   workspaces:
   - name: pipeline-pvc
   tasks:
-    - name: pipeline-show-env-task
+    # - name: show-environment
+    #   taskRef:
+    #     name: show-env-task
+    #   params:
+    #     - name: repository
+    #       value: $(params.repository)
+    #     - name: revision
+    #       value: $(params.revision)
+    #     - name: apikey
+    #       value: $(params.apikey)
+    #     - name: base-name
+    #       value: $(params.base-name)
+    #     - name: resource-group
+    #       value: $(params.resource-group)
+    #     - name: region
+    #       value: $(params.region)
+    #     - name: cluster-name
+    #       value: $(params.cluster-name)
+    #   workspaces:
+    #   - name: task-pvc
+    #     workspace: pipeline-pvc
+    - name: clone-repo
       taskRef:
-        name: show-env-task
+        name: git-clone-repo
       params:
         - name: repository
           value: $(params.repository)
+        - name: branch
+          value: ""
         - name: revision
           value: $(params.revision)
-        - name: apikey
-          value: $(params.apikey)
-        - name: base-name
-          value: $(params.base-name)
-        - name: resource-group
-          value: $(params.resource-group)
-        - name: region
-          value: $(params.region)
-        - name: cluster-name
-          value: $(params.cluster-name)
       workspaces:
-      - name: task-pvc
+      - name: output
         workspace: pipeline-pvc
     - name: build-image
       taskRef:
         name: icr-containerize
+      runAfter: [clone-repo]
       params:
         - name: image-url
           value: us.icr.io/scratch/simple-tekton-toolchain:latest
