@@ -78,7 +78,7 @@ form:
       cluster-name: '{{clusterName}}'
       cluster-namespace: >
         $env.clusterNamespace ? '{{clusterNamespace}}' : 'default'
-      registry-namespace: '{{registry-namespace}}'
-      schematics-workspace-id: '{{schematics-workspace-id}}'
+      registry-namespace: '{{registryNamespace}}'
+      schematics-workspace-id: '{{schematicsWorkspaceId}}'
     schema:
       $ref: deploy.json
