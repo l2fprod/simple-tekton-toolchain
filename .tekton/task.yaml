@@ -37,6 +37,17 @@ spec:
           env | sort;
           echo "Cloning $REPOSITORY";
           cd /workspace && git clone -q $REPOSITORY . && git checkout -qf $REVISION;
+    - name: build-image
+      taskRef:
+        name: icr-containerize
+      params:
+        - name: image-url
+          value: us.icr.io/scratch/simple-tekton-toolchain:latest
+        - name: resource-group
+          value: $(params.resource-group)
+      workspaces:
+      - name: source
+        workspace: pipeline-pvc
 # ---
 # apiVersion: tekton.dev/v1beta1
 # kind: Task
