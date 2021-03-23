@@ -49,9 +49,9 @@ spec:
               claimName: pipelinerun-$(uid)-pvc
         params:
         - name: repository
-          value: $(tt.params.repository)
+          value: $(params.repository)
         - name: revision
-          value: $(tt.params.revision)
+          value: $(params.revision)
         - name: apikey
           value: $(params.apikey)
         - name: base-name
