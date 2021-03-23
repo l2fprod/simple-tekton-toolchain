@@ -76,6 +76,13 @@
         ]
       }
     },
+    "cluster-namespace": {
+      "description": {
+        "$ref": "#/messages/deploy.clusterNamespaceDescription"
+      },
+      "type": "string",
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+    },
     "registry-namespace": {
       "description": {
         "$ref": "#/messages/deploy.registrynsDescription"
@@ -97,6 +104,7 @@
     "resource-group",
     "region",
     "cluster-name",
+    "cluster-namespace",
     "registry-namespace"
   ],
   "form": [
@@ -141,6 +149,14 @@
       "readonly": false,
       "title": {
         "$ref": "#/messages/deploy.clusterName"
+      }
+    },
+    {
+      "type": "text",
+      "key": "cluster-namespace",
+      "readonly": false,
+      "title": {
+        "$ref": "#/messages/deploy.clusterNamespace"
       }
     },
     {

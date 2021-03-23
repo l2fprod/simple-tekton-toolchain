@@ -72,21 +72,9 @@ properties:
 - name: cluster-name
   value: ${INPUT_CLUSTER_NAME}
   type: text
+- name: cluster-namespace
+  value: ${INPUT_CLUSTER_NAMESPACE}
+  type: text
 - name: registry-namespace
   value: ${INPUT_REGISTRY_NAMESPACE}
   type: text
-# - name: cluster
-#   value: ${PROD_CLUSTER_NAME}
-#   type: text 
-# - name: registryNamespace
-#   value: ${REGISTRY_NAMESPACE}
-#   type: text 
-# - name: clusterNamespace
-#   value: ${PROD_CLUSTER_NAMESPACE}
-#   type: text
-# - name: clusterRegion
-#   value: ${PROD_REGION_ID}
-#   type: text
-# - name: registryRegion
-#   value: ${REGISTRY_REGION_ID}
-#   type: text

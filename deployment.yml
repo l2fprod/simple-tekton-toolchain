@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: webapp:1
+        image: $IMAGE_URL
         # for local development against minikube registry
         #imagePullPolicy: Never        
         ports:

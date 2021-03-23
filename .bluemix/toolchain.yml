@@ -62,15 +62,13 @@ services:
           INPUT_RESOURCE_GROUP: '{{form.pipeline.parameters.resource-group}}'
           INPUT_REGION: '{{form.pipeline.parameters.region}}'
           INPUT_CLUSTER_NAME: '{{form.pipeline.parameters.cluster-name}}'
-          # REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
+          INPUT_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.cluster-namespace}}'
           INPUT_REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
-          # PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          # PROD_CLUSTER_NAME: '{{form.pipeline.parameters.prod-cluster-name}}'
-          # PROD_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.prod-cluster-namespace}}'
         #execute: Manual Trigger
 form:
   pipeline:
     parameters:
       base-name: '{{services.code-repo.parameters.repo_name}}'
+      cluster-namespace: 'default'
     schema:
       $ref: deploy.json

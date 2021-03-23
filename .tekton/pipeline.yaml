@@ -11,20 +11,8 @@ spec:
     - name: resource-group
     - name: region
     - name: cluster-name
+    - name: cluster-namespace
     - name: registry-namespace
-    # - name: registryNamespace
-    #   description: the ibmcloud registry namespace
-    # - name: cluster
-    #   description: The IBM Cloud Kubernetes cluster name
-    # - name: registryRegion
-    #   description: the ibmcloud registry region
-    #   default: us-south
-    # - name: clusterRegion
-    #   description: The IBM Cloud Kubernetes cluster region
-    #   default: us-south
-    # - name: clusterNamespace
-    #   description: The Kubernetes cluster namespace
-    #   default: prod
   workspaces:
   - name: pipeline-pvc
   tasks:
@@ -95,6 +83,11 @@ spec:
           value: |
             ls -la
             kubectl cluster-info
+            cat deployment.yml | \
+              IMAGE_URL=$PIPELINE_IMAGE_URL \
+              envsubst '$IMAGE_URL' \
+              | \
+              kubectl apply --namespace $(params.cluster-namespace) -f - || exit 1
         - name: pipeline-debug
           value: "1"
       workspaces:
