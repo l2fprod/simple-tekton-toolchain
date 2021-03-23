@@ -37,12 +37,6 @@ spec:
           env | sort;
           echo "Cloning $REPOSITORY";
           cd /workspace && git clone -q $REPOSITORY . && git checkout -qf $REVISION;
-    - name: build-image
-      image: ibmcom/pipeline-base-image
-      command: ["/bin/bash", "-c"]
-      args:
-        - set -e -o pipefail;
-          docker images;
 # ---
 # apiVersion: tekton.dev/v1beta1
 # kind: Task
