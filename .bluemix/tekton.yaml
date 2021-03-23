@@ -51,7 +51,7 @@ triggers:
   name: Manual Trigger
   eventListener: manual-listener
 - type: manual
-  name: Manual Cleanup Trigger
+  name: Manual Trigger (Cleanup)
   eventListener: manual-cleanup-listener
 properties:
 - name: repository
