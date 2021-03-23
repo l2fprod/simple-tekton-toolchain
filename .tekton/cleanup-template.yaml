@@ -118,10 +118,6 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
-        - name: cluster-name
-          value: $(cluster-name)
-        - name: cluster-namespace
-          value: $(cluster-namespace)
         - name: script
           value: |
             env

@@ -50,6 +50,9 @@ triggers:
 - type: manual
   name: Manual Trigger
   eventListener: manual-listener
+- type: manual
+  name: Manual Cleanup Trigger
+  eventListener: manual-cleanup-listener
 properties:
 - name: repository
   value: ${GIT_REPO_URL}
