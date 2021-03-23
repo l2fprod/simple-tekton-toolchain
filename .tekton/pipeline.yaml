@@ -78,6 +78,28 @@ spec:
       workspaces:
       - name: source
         workspace: pipeline-pvc
+    - name: deploy-app
+      taskRef:
+        name: iks-deploy-to-kubernetes
+      runAfter: [build-image]
+      params:
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: cluster-region
+          value: $(params.region)
+        - name: cluster-name
+          value: $(params.cluster-name)
+        - name: image-url
+          value: "$(tasks.build-image.results.image-repository):latest"
+        - name: script
+          value: |
+            ls -la
+            kubectl cluster-info
+        - name: pipeline-debug
+          value: true
+      workspaces:
+      - name: artifacts
+        workspace: pipeline-pvc
     # - name: pipeline-build-task
     #   taskRef:
     #     name: build-task
