@@ -1,0 +1,133 @@
+apiVersion: tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: cleanup-template
+spec:
+  params:
+    - name: repository
+    - name: revision
+    - name: apikey
+    - name: base-name
+    - name: resource-group
+    - name: region
+    - name: cluster-name
+    - name: cluster-namespace
+    - name: registry-namespace
+  resourcetemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: cleanup-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  5Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        name: cleanup-$(uid)
+      spec:
+        pipelineRef:
+            name: cleanup-pipeline
+        workspaces:
+          - name: cleanup-pvc
+            persistentVolumeClaim:
+              claimName: cleanup-$(uid)-pvc
+        params:
+        - name: repository
+          value: $(tt.params.repository)
+        - name: revision
+          value: $(tt.params.revision)
+        - name: apikey
+          value: $(params.apikey)
+        - name: base-name
+          value: $(params.base-name)
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: cluster-name
+          value: $(params.cluster-name)
+        - name: cluster-namespace
+          value: $(params.cluster-namespace)
+        - name: registry-namespace
+          value: $(params.registry-namespace)
+---
+apiVersion: tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: manual-cleanup-binding
+spec:
+  params:
+    - name: repository
+      value: $(params.repository)
+    - name: revision
+      value: $(params.revision)
+---
+apiVersion: tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: manual-cleanup-listener
+spec:
+  triggers:
+    - binding:
+        name: manual-cleanup-binding
+      template:
+        name: cleanup-template
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cleanup-pipeline
+spec:
+  params:
+    - name: repository
+    - name: revision
+    - name: apikey
+    - name: base-name
+    - name: resource-group
+    - name: region
+    - name: cluster-name
+    - name: cluster-namespace
+    - name: registry-namespace
+  workspaces:
+  - name: cleanup-pvc
+  tasks:
+    - name: clone-repo
+      taskRef:
+        name: git-clone-repo
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: branch
+          value: ""
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+      - name: output
+        workspace: cleanup-pvc
+    - name: cleanup-commands
+      taskRef:
+        name: ibmcloud-cli
+      runAfter: [clone-repo]
+      params:
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: cluster-name
+          value: $(cluster-name)
+        - name: cluster-namespace
+          value: $(cluster-namespace)
+        - name: script
+          value: |
+            env
+            echo "Going to do cleanup here"
+            ibmcloud ks cluster config --cluster $(params.cluster-name)
+            cat deployment.yml | kubectl delete --namespace $(params.cluster-namespace) -f -
+      workspaces:
+      - name: artifacts
+        workspace: cleanup-pvc
