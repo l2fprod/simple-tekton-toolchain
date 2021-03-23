@@ -13,6 +13,7 @@ spec:
     - name: cluster-name
     - name: cluster-namespace
     - name: registry-namespace
+    - name: schematics-workspace-id
   resourcetemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -55,6 +56,8 @@ spec:
           value: $(params.cluster-namespace)
         - name: registry-namespace
           value: $(params.registry-namespace)
+        - name: schematics-workspace-id
+          value: $(params.schematics-workspace-id)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding

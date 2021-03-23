@@ -64,6 +64,7 @@ services:
           INPUT_CLUSTER_NAME: '{{form.pipeline.parameters.cluster-name}}'
           INPUT_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.cluster-namespace}}'
           INPUT_REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
+          INPUT_SCHEMATICS_WORKSPACE_ID: '{{form.pipeline.parameters.schematics-workspace-id}}'
         #execute: Manual Trigger
 form:
   pipeline:

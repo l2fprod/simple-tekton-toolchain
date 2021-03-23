@@ -81,3 +81,6 @@ properties:
 - name: registry-namespace
   value: ${INPUT_REGISTRY_NAMESPACE}
   type: text
+- name: schematics-workspace-id
+  value: ${INPUT_SCHEMATICS_WORKSPACE_ID}
+  type: text

@@ -96,6 +96,12 @@
         ],
         "validate": false
       }
+    },
+    "schematics-workspace-id": {
+      "description": {
+        "$ref": "#/messages/deploy.schematicsWorkspaceDescription"
+      },
+      "type": "string"
     }
   },
   "required": [
@@ -166,6 +172,14 @@
         "$ref": "#/messages/deploy.registryns"
       },
       "key": "registry-namespace"
+    },
+    {
+      "type": "text",
+      "key": "schematics-workspace-id",
+      "readonly": false,
+      "title": {
+        "$ref": "#/messages/deploy.schematicsWorkspace"
+      }
     }
   ]
 }

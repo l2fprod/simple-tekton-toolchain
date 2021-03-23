@@ -27,3 +27,6 @@ deploy.registryns: "Container image registry namespace"
 
 deploy.clusterNamespace: "Cluster namespace"
 deploy.clusterNamespaceDescription: "The **existing cluster namespace** where to deploy resources"
+
+deploy.schematicsWorkspace: "Schematics workspace ID"
+deploy.schematicsWorkspaceDescription: "The ID of an **existing Schematics workspace**."

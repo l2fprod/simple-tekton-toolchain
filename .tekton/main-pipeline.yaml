@@ -13,6 +13,7 @@ spec:
     - name: cluster-name
     - name: cluster-namespace
     - name: registry-namespace
+    - name: schematics-workspace-id
   workspaces:
   - name: pipeline-pvc
   tasks:
