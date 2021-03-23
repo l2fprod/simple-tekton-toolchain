@@ -33,10 +33,12 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - set -e -o pipefail;
+          ls -la /;
           echo "Environment:";
           env | sort;
           echo "Cloning $REPOSITORY";
           cd /workspace && git clone -q $REPOSITORY . && git checkout -qf $REVISION;
+          ls -lR /;
 # ---
 # apiVersion: tekton.dev/v1beta1
 # kind: Task
