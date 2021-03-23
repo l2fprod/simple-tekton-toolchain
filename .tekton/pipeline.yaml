@@ -68,3 +68,18 @@ spec:
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
+    - name: run-commands
+      taskRef:
+        name: ibmcloud-cli
+      runAfter: [clone-repo]
+      params:
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: script
+          value: |
+            ibmcloud account show
+      workspaces:
+      - name: artifacts
+        workspace: pipeline-pvc
