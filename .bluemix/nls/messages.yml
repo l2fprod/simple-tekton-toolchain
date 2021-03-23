@@ -3,7 +3,7 @@
 template.name: "Deploy a tutorial"
 template.description: "With this toolchain, you can deploy the architecture shown in [a tutorial](https://cloud.ibm.com/docs/)."
 template.gettingStarted: "**Your toolchain is ready!**"
-deploy.title: "Hello World Deploy Stage"
+deploy.title: "Base Toolchain"
 deploy.description: "hello-world simple toolchain"
 deploy.longDescription: "The Delivery Pipeline automates continuous build, test and deploy of the Docker application."
 
