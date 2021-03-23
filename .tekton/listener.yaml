@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: template
@@ -48,9 +48,9 @@ spec:
               claimName: pipelinerun-$(uid)-pvc
         params:
         - name: repository
-          value: $(params.repository)
+          value: $(tt.params.repository)
         - name: revision
-          value: $(params.revision)
+          value: $(tt.params.revision)
         - name: apikey
           value: $(params.apikey)
         - name: base-name
@@ -70,18 +70,18 @@ spec:
         # - name: clusterNamespace
         #   value: $(params.clusterNamespace)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: binding
 spec:
   params:
     - name: repository
-      value: $(event.repository.html_url)
+      value: $(body.repository.html_url)
     - name: revision
-      value: $(event.after)
+      value: $(body.after)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: listener
