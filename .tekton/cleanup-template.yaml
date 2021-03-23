@@ -122,6 +122,7 @@ spec:
           value: |
             env
             echo "Going to do cleanup here"
+            ibmcloud plugin list
             ibmcloud ks cluster config --cluster $(params.cluster-name)
             cat deployment.yml | kubectl delete --namespace $(params.cluster-namespace) -f -
       workspaces:
