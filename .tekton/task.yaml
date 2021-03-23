@@ -34,6 +34,8 @@ spec:
       args:
         - set -e -o pipefail;
           ls -la /;
+          ls -la /artifacts;
+          ls -la /workspace;
           echo "Environment:";
           env | sort;
           echo "Cloning $REPOSITORY";
