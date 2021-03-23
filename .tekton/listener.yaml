@@ -5,7 +5,9 @@ metadata:
 spec:
   params:
     - name: repository
+      default: $(params.repository)
     - name: revision
+      default: $(params.revision)
     - name: apikey
     - name: base-name
     - name: resource-group
