@@ -28,7 +28,8 @@
       "description": {
         "$ref": "#/messages/deploy.baseNameDescription"
       },
-      "type": "string"
+      "type": "string",
+      "pattern": "\\S"
     },
     "resource-group": {
       "description": {
