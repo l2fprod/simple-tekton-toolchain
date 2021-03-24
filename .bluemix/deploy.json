@@ -24,9 +24,9 @@
         "v-type": "api-key"
       }
     },
-    "base-name": {
+    "resource-prefix": {
       "description": {
-        "$ref": "#/messages/deploy.baseNameDescription"
+        "$ref": "#/messages/deploy.resourcePrefixDescription"
       },
       "type": "string",
       "pattern": "\\S"
@@ -106,7 +106,7 @@
   },
   "required": [
     "api-key",
-    "base-name",
+    "resource-prefix",
     "resource-group",
     "region",
     "cluster-name",
@@ -130,9 +130,9 @@
       "type": "text",
       "readonly": false,
       "title": {
-        "$ref": "#/messages/deploy.baseName"
+        "$ref": "#/messages/deploy.resourcePrefix"
       },
-      "key": "base-name"
+      "key": "resource-prefix"
     },
     {
       "type": "select",

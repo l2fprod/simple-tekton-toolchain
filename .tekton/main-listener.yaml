@@ -7,7 +7,7 @@ spec:
     - name: repository
     - name: revision
     - name: apikey
-    - name: base-name
+    - name: resource-prefix
     - name: resource-group
     - name: region
     - name: cluster-name
@@ -44,8 +44,8 @@ spec:
           value: $(tt.params.revision)
         - name: apikey
           value: $(params.apikey)
-        - name: base-name
-          value: $(params.base-name)
+        - name: resource-prefix
+          value: $(params.resource-prefix)
         - name: resource-group
           value: $(params.resource-group)
         - name: region

@@ -7,7 +7,7 @@ spec:
     - name: repository
     - name: revision
     - name: apikey
-    - name: base-name
+    - name: resource-prefix
     - name: resource-group
     - name: region
     - name: cluster-name
@@ -45,7 +45,7 @@ spec:
             cat deployment.yml | (kubectl delete --namespace $(params.cluster-namespace) -f - || true)
 
             REGISTRY_URL=$(ibmcloud cr info | grep -m1 -i '^Container Registry' | awk '{print $3;}')
-            IMAGE_URL="${REGISTRY_URL}/$(params.registry-namespace)/$(params.base-name)-image"
+            IMAGE_URL="${REGISTRY_URL}/$(params.registry-namespace)/$(params.resource-prefix)-image"
             ibmcloud cr image-rm $IMAGE_URL:latest || true
       workspaces:
       - name: artifacts

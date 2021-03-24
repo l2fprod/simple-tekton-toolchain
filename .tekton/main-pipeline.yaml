@@ -7,7 +7,7 @@ spec:
     - name: repository
     - name: revision
     - name: apikey
-    - name: base-name
+    - name: resource-prefix
     - name: resource-group
     - name: region
     - name: cluster-name
@@ -40,7 +40,7 @@ spec:
         - name: registry-namespace
           value: $(params.registry-namespace)
         - name: image-name
-          value: "$(params.base-name)-image"
+          value: "$(params.resource-prefix)-image"
         - name: resource-group
           value: $(params.resource-group)
       workspaces:

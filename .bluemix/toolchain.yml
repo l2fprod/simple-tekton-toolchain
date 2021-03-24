@@ -58,7 +58,7 @@ services:
           GIT_BRANCH: $env.branch
           TEKTON_CATALOG_REPO: tekton-catalog-repo
           API_KEY: '{{form.pipeline.parameters.api-key}}'
-          INPUT_BASENAME: '{{form.pipeline.parameters.base-name}}'
+          INPUT_RESOURCE_PREFIX: '{{form.pipeline.parameters.resource-prefix}}'
           INPUT_RESOURCE_GROUP: '{{form.pipeline.parameters.resource-group}}'
           INPUT_REGION: '{{form.pipeline.parameters.region}}'
           INPUT_CLUSTER_NAME: '{{form.pipeline.parameters.cluster-name}}'
@@ -71,9 +71,9 @@ form:
     parameters:
       # allow initialization from environment, i.e from the URL quey parameters
       api-key: '{{apiKey}}'
-      base-name: '{{thePrefix}}'
-        # $env.baseName ?
-        #   '{{baseName}}' : '{{services.code-repo.parameters.repo_name}}'
+      resource-prefix: '{{resourcePrefix}}'
+        $env.resourcePrefix ?
+          '{{resourcePrefix}}' : '{{services.code-repo.parameters.repo_name}}'
       resource-group: '{{resourceGroup}}'
       region: '{{region}}'
       cluster-name: '{{clusterName}}'
