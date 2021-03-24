@@ -71,7 +71,7 @@ form:
     parameters:
       # allow initialization from environment, i.e from the URL quey parameters
       api-key: '{{apiKey}}'
-      base-name: '{{baseName}}'
+      base-name: '{{thePrefix}}'
         # $env.baseName ?
         #   '{{baseName}}' : '{{services.code-repo.parameters.repo_name}}'
       resource-group: '{{resourceGroup}}'
