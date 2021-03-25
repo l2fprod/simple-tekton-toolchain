@@ -31,57 +31,74 @@ spec:
       workspaces:
       - name: output
         workspace: pipeline-pvc
-    - name: build-image
+    # - name: build-image
+    #   taskRef:
+    #     name: icr-containerize
+    #   runAfter: [clone-repo]
+    #   params:
+    #     - name: registry-region
+    #       value: $(params.region)
+    #     - name: registry-namespace
+    #       value: $(params.registry-namespace)
+    #     - name: image-name
+    #       value: "$(params.resource-prefix)-image"
+    #     - name: resource-group
+    #       value: $(params.resource-group)
+    #   workspaces:
+    #   - name: source
+    #     workspace: pipeline-pvc
+    # - name: deploy-app
+    #   taskRef:
+    #     name: iks-deploy-to-kubernetes
+    #   runAfter: [build-image]
+    #   params:
+    #     - name: resource-group
+    #       value: $(params.resource-group)
+    #     - name: cluster-region
+    #       value: $(params.region)
+    #     - name: cluster-name
+    #       value: $(params.cluster-name)
+    #     - name: image-url
+    #       value: "$(tasks.build-image.results.image-repository):latest"
+    #     - name: script
+    #       value: |
+    #         cat deployment.yml | \
+    #           IMAGE_URL=$PIPELINE_IMAGE_URL \
+    #           envsubst '$IMAGE_URL' \
+    #           | \
+    #           kubectl apply --namespace $(params.cluster-namespace) -f - || exit 1
+    #   workspaces:
+    #   - name: artifacts
+    #     workspace: pipeline-pvc
+    # - name: run-commands
+    #   taskRef:
+    #     name: ibmcloud-cli
+    #   runAfter: [clone-repo]
+    #   params:
+    #     - name: resource-group
+    #       value: $(params.resource-group)
+    #     - name: region
+    #       value: $(params.region)
+    #     - name: script
+    #       value: |
+    #         ibmcloud account show
+    #   workspaces:
+    #   - name: artifacts
+    #     workspace: pipeline-pvc
+    - name: create-schematics-workspace
       taskRef:
-        name: icr-containerize
-      runAfter: [clone-repo]
-      params:
-        - name: registry-region
-          value: $(params.region)
-        - name: registry-namespace
-          value: $(params.registry-namespace)
-        - name: image-name
-          value: "$(params.resource-prefix)-image"
-        - name: resource-group
-          value: $(params.resource-group)
-      workspaces:
-      - name: source
-        workspace: pipeline-pvc
-    - name: deploy-app
-      taskRef:
-        name: iks-deploy-to-kubernetes
-      runAfter: [build-image]
-      params:
-        - name: resource-group
-          value: $(params.resource-group)
-        - name: cluster-region
-          value: $(params.region)
-        - name: cluster-name
-          value: $(params.cluster-name)
-        - name: image-url
-          value: "$(tasks.build-image.results.image-repository):latest"
-        - name: script
-          value: |
-            cat deployment.yml | \
-              IMAGE_URL=$PIPELINE_IMAGE_URL \
-              envsubst '$IMAGE_URL' \
-              | \
-              kubectl apply --namespace $(params.cluster-namespace) -f - || exit 1
-      workspaces:
-      - name: artifacts
-        workspace: pipeline-pvc
-    - name: run-commands
-      taskRef:
-        name: ibmcloud-cli
-      runAfter: [clone-repo]
+        name: workspace-new-task
       params:
         - name: resource-group
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
-        - name: script
-          value: |
-            ibmcloud account show
-      workspaces:
-      - name: artifacts
-        workspace: pipeline-pvc
+        - name: workspace-name
+          value: $(params.resource-prefix)-schematics
+        - name: workspace-repository
+          value: $(params.repository)
+        - name: workspace-repository-branch
+          value: $(params.branch)
+        - name: workspace-repository-folder
+          value: "terraform"
+
