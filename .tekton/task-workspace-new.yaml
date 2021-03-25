@@ -113,24 +113,24 @@ spec:
           echo "Workspace $SCHEMATICS_WORKSPACE_NAME not found"
 
           echo '{
-  "name": "'$SCHEMATICS_WORKSPACE_NAME'",
-  "type": [
-    "terraform_v0.13"
-  ],
-  "location": "'$IBM_CLOUD_REGION'",
-  "description": "",
-  "tags": [],
-  "resource_group": "'$PIPELINE_BLUEMIX_RESOURCE_GROUP'",
-  "template_repo": {
-    "url": "'$SCHEMATICS_WORKSPACE_REPOSITORY/tree/$SCHEMATICS_WORKSPACE_REPOSITORY_BRANCH/$SCHEMATICS_WORKSPACE_REPOSITORY_FOLDER'"
-  },
-  "template_data": [
-    {
-      "folder": "'$SCHEMATICS_WORKSPACE_REPOSITORY_FOLDER'",
-      "type": "terraform_v0.13"
-    }
-  ]
-}' > /tmp/new-workspace.json
+            "name": "'$SCHEMATICS_WORKSPACE_NAME'",
+            "type": [
+              "terraform_v0.13"
+            ],
+            "location": "'$IBM_CLOUD_REGION'",
+            "description": "",
+            "tags": [],
+            "resource_group": "'$PIPELINE_BLUEMIX_RESOURCE_GROUP'",
+            "template_repo": {
+              "url": "'$SCHEMATICS_WORKSPACE_REPOSITORY/tree/$SCHEMATICS_WORKSPACE_REPOSITORY_BRANCH/$SCHEMATICS_WORKSPACE_REPOSITORY_FOLDER'"
+            },
+            "template_data": [
+              {
+                "folder": "'$SCHEMATICS_WORKSPACE_REPOSITORY_FOLDER'",
+                "type": "terraform_v0.13"
+              }
+            ]
+          }' > /tmp/new-workspace.json
           cat /tmp/new-workspace.json
           WORKSPACE_JSON=$(ibmcloud schematics workspace new --file /tmp/new-workspace.json --output json)
           SCHEMATICS_WORKSPACE_ID=$(echo $WORKSPACE_JSON | jq -r .id)
