@@ -88,6 +88,7 @@ spec:
     - name: create-schematics-workspace
       taskRef:
         name: workspace-new-task
+      runAfter: [clone-repo]
       params:
         - name: resource-group
           value: $(params.resource-group)
