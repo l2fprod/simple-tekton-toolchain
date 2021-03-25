@@ -36,6 +36,7 @@ spec:
       args:
         - |
           #!/bin/bash
+          env | sort
           echo "Workspace $WORKSPACE_ID"
 
           REGION="--no-region"
@@ -59,7 +60,6 @@ spec:
           fi
 
           for KEY in $(cat temp.json | jq ".template_data[0].values_metadata[].name" -r); do
-              
               # if the value exists as an env var, update the workspace
               if [ -n "${!KEY}" ]; then
                   echo "$KEY found with value '${!KEY}'"; 
