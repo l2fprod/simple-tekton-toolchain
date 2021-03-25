@@ -114,6 +114,7 @@ spec:
 
         if [ "$JSON_FILE_GIT_CREDENTIALS" ]; then
           echo "GITHUB_TOKEN ="
+          cat "${ARTIFACTS_PATH}/${JSON_FILE_GIT_CREDENTIALS}"
           cat "${ARTIFACTS_PATH}/${JSON_FILE_GIT_CREDENTIALS}" | jq -r .GITHUB_TOKEN
         fi
 

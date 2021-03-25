@@ -115,4 +115,4 @@ spec:
       runAfter: [create-schematics-workspace]
       params:
         - name: WORKSPACE_ID
-          value: tasks.create-schematics-workspace.results.workspace-id
+          value: $(tasks.create-schematics-workspace.results.workspace-id)
