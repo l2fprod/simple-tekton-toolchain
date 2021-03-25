@@ -92,6 +92,8 @@ spec:
             set -x
         fi
 
+        ARTIFACTS_PATH="$(workspaces.artifacts.path)"
+
         ibmcloud config --check-version false
         if [ "$(params.region)" ]; then
           # if region is in the 'ibm:yp:<region>' just keep the region part
