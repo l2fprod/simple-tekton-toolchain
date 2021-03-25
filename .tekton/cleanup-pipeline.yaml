@@ -5,6 +5,7 @@ metadata:
 spec:
   params:
     - name: repository
+    - name: branch
     - name: revision
     - name: apikey
     - name: resource-prefix

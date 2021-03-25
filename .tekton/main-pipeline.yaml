@@ -5,6 +5,7 @@ metadata:
 spec:
   params:
     - name: repository
+    - name: branch
     - name: revision
     - name: apikey
     - name: resource-prefix
@@ -24,7 +25,7 @@ spec:
         - name: repository
           value: $(params.repository)
         - name: branch
-          value: ""
+          value: "" # don't pass the branch, we want to checkout a specific commit
         - name: revision
           value: $(params.revision)
       workspaces:

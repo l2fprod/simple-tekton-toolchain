@@ -5,6 +5,7 @@ metadata:
 spec:
   params:
     - name: repository
+    - name: branch
     - name: revision
     - name: apikey
     - name: resource-prefix
@@ -39,6 +40,8 @@ spec:
         params:
         - name: repository
           value: $(tt.params.repository)
+        - name: branch
+          value: $(params.branch)
         - name: revision
           value: $(tt.params.revision)
         - name: apikey

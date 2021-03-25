@@ -57,6 +57,9 @@ properties:
 - name: repository
   value: ${GIT_REPO_URL}
   type: text
+- name: branch
+  value: ${GIT_BRANCH}
+  type: text
 - name: revision
   value: ${GIT_BRANCH}
   type: text
