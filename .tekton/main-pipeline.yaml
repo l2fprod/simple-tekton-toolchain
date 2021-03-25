@@ -127,7 +127,8 @@ spec:
                   "variablestore": [
                     {
                       "name": "apikey",
-                      "value": "'$PIPELINE_BLUEMIX_API_KEY'"
+                      "value": "'$PIPELINE_BLUEMIX_API_KEY'",
+                      "secure": true
                     },
                     {
                       "name": "region",
