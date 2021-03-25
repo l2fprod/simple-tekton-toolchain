@@ -111,8 +111,44 @@ spec:
         workspace: pipeline-pvc
     - name: update-schematics-workspace
       taskRef:
-        name: workspace-update-task
+        name: ibmcloud-cli
       runAfter: [create-schematics-workspace]
       params:
-        - name: WORKSPACE_ID
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: workspace-id
           value: $(tasks.create-schematics-workspace.results.workspace-id)
+        - name: script
+          value: |
+            echo '{
+              "template_data": [
+                {
+                  "type": "terraform_v0.13",
+                  "variablestore": [
+                    {
+                      "name": "apikey",
+                      "value": "'$PIPELINE_BLUEMIX_API_KEY'"
+                    },
+                    {
+                      "name": "region",
+                      "value": "'$IBM_CLOUD_REGION'"
+                    },
+                    {
+                      "name": "resource-prefix",
+                      "value": "$(params.resource-prefix)"
+                    },
+                    {
+                      "name": "resource-group",
+                      "value": "$(params.resource-group)"
+                    }
+                  ]
+                }
+              ]
+            }' > /tmp/workspace-update.json
+
+            ibmcloud schematics workspace update --id $(params.workspace-id) --file /tmp/workspace-update.json
+      workspaces:
+      - name: artifacts
+        workspace: pipeline-pvc
