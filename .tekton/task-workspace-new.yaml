@@ -28,6 +28,8 @@ spec:
     - name: workspace-repository
     - name: workspace-repository-branch
     - name: workspace-repository-folder
+    - name: git-credentials-json-file
+      default: ""
   results:
     - name: workspace-id
   workspaces:
@@ -73,6 +75,8 @@ spec:
           value: $(params.workspace-repository-branch)
         - name: SCHEMATICS_WORKSPACE_REPOSITORY_FOLDER
           value: $(params.workspace-repository-folder)
+        - name: JSON_FILE_GIT_CREDENTIALS
+          value: $(params.git-credentials-json-file)
       script: |
         #!/bin/bash
         set -e -o pipefail
@@ -106,8 +110,12 @@ spec:
           export $(cut -d= -f1 $SHUTTLE_PROPERTIES_FILE)
         fi
 
-        SCHEMATICS_WORKSPACE_LIST_JSON=$(ibmcloud schematics workspace list --output json)
+        if [ "$JSON_FILE_GIT_CREDENTIALS" ]; then
+          echo "GITHUB_TOKEN ="
+          cat "${ARTIFACTS_PATH}/${JSON_FILE_GIT_CREDENTIALS}" | jq -r .GITHUB_TOKEN
+        fi
 
+        SCHEMATICS_WORKSPACE_LIST_JSON=$(ibmcloud schematics workspace list --output json)
         SCHEMATICS_WORKSPACE_ID=$(echo $SCHEMATICS_WORKSPACE_LIST_JSON | jq -r '.workspaces | .[] | select(.resource_group=="'$PIPELINE_BLUEMIX_RESOURCE_GROUP'" and .name=="'$SCHEMATICS_WORKSPACE_NAME'") | .id')
         if [[ -z "$SCHEMATICS_WORKSPACE_ID" ]]; then
           echo "Workspace $SCHEMATICS_WORKSPACE_NAME not found"

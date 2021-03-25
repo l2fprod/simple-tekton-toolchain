@@ -104,6 +104,8 @@ spec:
           value: $(params.branch)
         - name: workspace-repository-folder
           value: "terraform"
+        - name: git-credentials-json-file
+          value: .git-credentials.json
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
