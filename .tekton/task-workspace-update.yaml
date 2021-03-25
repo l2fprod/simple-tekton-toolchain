@@ -61,8 +61,9 @@ spec:
 
           for KEY in $(cat temp.json | jq ".template_data[0].values_metadata[].name" -r); do
               # if the value exists as an env var, update the workspace
-              if [ -n "${!KEY}" ]; then
-                  echo "$KEY found with value '${!KEY}'"; 
+              if env | grep ^$KEY=; then
+                  ENV_VALUE=$(env | grep ^$KEY= | awk -F= '{print $2}')
+                  echo "$KEY found with value '$ENV_VALUE'"; 
                   SEARCH=$(cat temp.json | jq ".template_data[0].variablestore[]?.name")
 
                   echo "$SEARCH"
@@ -71,11 +72,11 @@ spec:
                       echo "It's there, update it."
                       WORKSPACE=$(cat temp.json | jq -r \
                           --arg updateKey "$KEY" \
-                          --arg updateVal "${!KEY}" \
+                          --arg updateVal "$ENV_VALUE" \
                           '.template_data[0].variablestore = [.template_data[0].variablestore[] | if (.name == $updateKey) then (.value = $updateVal) else . end]' )
                   else 
                       echo "It's NOT there, add it."
-                      WORKSPACE=$(cat temp.json| jq -r ".template_data[0].variablestore[.template_data[0].variablestore| length] |= . + { \"name\": \"$KEY\", \"value\": \"${!KEY}\", \"type\": \"string\" }")
+                      WORKSPACE=$(cat temp.json| jq -r ".template_data[0].variablestore[.template_data[0].variablestore| length] |= . + { \"name\": \"$KEY\", \"value\": \"$ENV_VALUE\", \"type\": \"string\" }")
                       
                   fi
               fi
