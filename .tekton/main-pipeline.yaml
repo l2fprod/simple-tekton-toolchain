@@ -118,12 +118,6 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
-        - name: workspace-id
-          value: $(tasks.create-schematics-workspace.results.workspace-id)
-        - name: resource-prefix
-          value: $(params.resource-prefix)
-        - name: resource-group
-          value: $(params.resource-group)
         - name: script
           value: |
             echo '{
@@ -152,7 +146,7 @@ spec:
               ]
             }' > /tmp/workspace-update.json
 
-            ibmcloud schematics workspace update --id $(params.workspace-id) --file /tmp/workspace-update.json
+            ibmcloud schematics workspace update --id $(tasks.create-schematics-workspace.results.workspace-id) --file /tmp/workspace-update.json
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
