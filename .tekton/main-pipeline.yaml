@@ -101,4 +101,6 @@ spec:
           value: $(params.branch)
         - name: workspace-repository-folder
           value: "terraform"
-
+      workspaces:
+      - name: artifacts
+        workspace: pipeline-pvc
