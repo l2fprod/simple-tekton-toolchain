@@ -120,6 +120,10 @@ spec:
           value: $(params.region)
         - name: workspace-id
           value: $(tasks.create-schematics-workspace.results.workspace-id)
+        - name: resource-prefix
+          value: $(params.resource-prefix)
+        - name: resource-group
+          value: $(params.resource-group)
         - name: script
           value: |
             echo '{
