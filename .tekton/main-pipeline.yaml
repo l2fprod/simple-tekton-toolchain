@@ -109,3 +109,10 @@ spec:
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
+    - name: update-schematics-workspace
+      taskRef:
+        name: workspace-update-task
+      runAfter: [create-schematics-workspace]
+      params:
+        - name: WORKSPACE_ID
+          value: tasks.create-schematics-workspace.results.workspace-id
