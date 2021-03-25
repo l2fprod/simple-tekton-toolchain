@@ -28,6 +28,8 @@ spec:
           value: "" # don't pass the branch, we want to checkout a specific commit
         - name: revision
           value: $(params.revision)
+        - name: git-credentials-json-file
+          value: .git-credentials.json
       workspaces:
       - name: output
         workspace: pipeline-pvc
