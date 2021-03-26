@@ -121,6 +121,13 @@ spec:
         - name: script
           value: |
             echo '{
+              "template_repo":
+                {
+                  "url": "$(params.repository)/tree/$(params.branch)/terraform",
+                  "branch": "$(params.branch)"
+                  "full_url": "$(params.repository)/tree/$(params.branch)/terraform",
+                  "has_uploadedgitrepotar": false
+                },
               "template_data": [
                 {
                   "type": "terraform_v0.13",
