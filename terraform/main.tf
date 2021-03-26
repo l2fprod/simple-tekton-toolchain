@@ -6,7 +6,7 @@ variable "resource-group" { default = "" }
 variable "tags" { default = ["terraform"] }
 
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 0.13"
 
   required_providers {
     ibm = {
