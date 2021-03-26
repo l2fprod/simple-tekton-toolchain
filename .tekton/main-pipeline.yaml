@@ -87,29 +87,29 @@ spec:
     #   workspaces:
     #   - name: artifacts
     #     workspace: pipeline-pvc
-    - name: create-schematics-workspace
-      taskRef:
-        name: workspace-new-task
-      runAfter: [clone-repo]
-      params:
-        - name: resource-group
-          value: $(params.resource-group)
-        - name: region
-          value: $(params.region)
-        - name: workspace-name
-          value: $(params.resource-prefix)-schematics
-        - name: workspace-repository
-          value: $(params.repository)
-        - name: workspace-repository-branch
-          value: $(params.branch)
-        - name: workspace-repository-folder
-          value: "terraform"
-        - name: git-credentials-json-file
-          value: .git-credentials.json
-      workspaces:
-      - name: artifacts
-        workspace: pipeline-pvc
-    - name: update-schematics-workspace
+    # - name: create-schematics-workspace
+    #   taskRef:
+    #     name: workspace-new-task
+    #   runAfter: [clone-repo]
+    #   params:
+    #     - name: resource-group
+    #       value: $(params.resource-group)
+    #     - name: region
+    #       value: $(params.region)
+    #     - name: workspace-name
+    #       value: $(params.resource-prefix)-schematics
+    #     - name: workspace-repository
+    #       value: $(params.repository)
+    #     - name: workspace-repository-branch
+    #       value: $(params.branch)
+    #     - name: workspace-repository-folder
+    #       value: "terraform"
+    #     - name: git-credentials-json-file
+    #       value: .git-credentials.json
+    #   workspaces:
+    #   - name: artifacts
+    #     workspace: pipeline-pvc
+    - name: create-or-update-schematics-workspace
       taskRef:
         name: ibmcloud-cli
       runAfter: [create-schematics-workspace]
@@ -121,6 +121,14 @@ spec:
         - name: script
           value: |
             echo '{
+              "name": "$(params.resource-prefix)-schematics",
+              "type": [
+                "terraform_v0.13"
+              ],
+              "location": "'$IBM_CLOUD_REGION'",
+              "description": "",
+              "tags": [ "terraform" ],
+              "resource_group": "$(params.resource-group)",
               "template_repo":
                 {
                   "url": "$(params.repository)",
@@ -154,7 +162,20 @@ spec:
               ]
             }' > /tmp/workspace-update.json
 
-            ibmcloud schematics workspace update --id $(tasks.create-schematics-workspace.results.workspace-id) --file /tmp/workspace-update.json
+            SCHEMATICS_WORKSPACE_LIST_JSON=$(ibmcloud schematics workspace list --output json)
+            SCHEMATICS_WORKSPACE_ID=$(echo $SCHEMATICS_WORKSPACE_LIST_JSON | jq -r '.workspaces | .[] | select(.resource_group=="$(params.resource-group)" and .name=="$(params.resource-prefix)-schematics") | .id')
+            if [[ -z "$SCHEMATICS_WORKSPACE_ID" ]]; then
+              echo "Workspace $SCHEMATICS_WORKSPACE_NAME not found"
+              WORKSPACE_JSON=$(ibmcloud schematics workspace new --file /tmp/new-workspace.json --output json)
+              SCHEMATICS_WORKSPACE_ID=$(echo $WORKSPACE_JSON | jq -r .id)
+            else
+              echo "Workspace already exists"
+              ibmcloud schematics workspace update --id $SCHEMATICS_WORKSPACE_ID --file /tmp/workspace-update.json
+            fi
+            echo "SCHEMATICS_WORKSPACE_ID=$SCHEMATICS_WORKSPACE_ID"
+            echo -n "$SCHEMATICS_WORKSPACE_ID" > $(results.workspace-id.path)
+      results:
+        - name: workspace-id
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
