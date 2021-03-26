@@ -123,7 +123,7 @@ spec:
             echo '{
               "template_repo":
                 {
-                  "url": "$(params.repository)/tree/$(params.branch)/terraform",
+                  "url": "$(params.repository)",
                   "branch": "$(params.branch)"
                   "full_url": "$(params.repository)/tree/$(params.branch)/terraform",
                   "has_uploadedgitrepotar": false
