@@ -190,7 +190,7 @@ spec:
         - name: script
           value: |
             SCHEMATICS_WORKSPACE_ID=$(cat /artifacts/workspace-id.json)
-            ACTIVITY=$(ibmcloud terraform plan -id $SCHEMATICS_WORKSPACE_ID --json)
+            ACTIVITY=$(ibmcloud terraform apply --id $SCHEMATICS_WORKSPACE_ID --force --json)
             ACTIVITY_ID=$(echo $ACTIVITY | jq -r ".activityid")
             echo "Activity ID   $ACTIVITY_ID"
             # poll until status is no longer INPROGRESS, or if there is an error
