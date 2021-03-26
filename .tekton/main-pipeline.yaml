@@ -118,7 +118,7 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
-        - pipeline-debug:
+        - name: pipeline-debug
           value: 1
         - name: script
           value: |
