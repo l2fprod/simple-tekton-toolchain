@@ -30,9 +30,8 @@ flowchart LR
   pipeline-->clone-repo
 
   clone-repo-->build-image-->deploy-app
-  clone-repo-->run-commands
+  clone-repo-->create-or-update-schematics-workspace-->apply-schematics-workspace-->deploy-app
   deploy-app-->done
-  run-commands-->done
 
   %% clone-repo-.->pipeline-pvc
   %% build-image-.->pipeline-pvc
@@ -48,7 +47,8 @@ flowchart LR
     clone-repo
     build-image
     deploy-app
-    run-commands
+    create-or-update-schematics-workspace
+    apply-schematics-workspace
   end
 
   clone-repo[/clone-repo/]
