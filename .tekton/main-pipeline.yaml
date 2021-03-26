@@ -119,7 +119,7 @@ spec:
         - name: region
           value: $(params.region)
         - name: pipeline-debug
-          value: 1
+          value: "1"
         - name: script
           value: |
 
