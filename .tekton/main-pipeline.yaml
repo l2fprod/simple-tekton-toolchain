@@ -118,10 +118,14 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
+        - pipeline-debug:
+          value: 1
         - name: script
           value: |
+
+            SCHEMATICS_WORKSPACE_NAME="$(params.resource-prefix)-schematics"
             echo '{
-              "name": "$(params.resource-prefix)-schematics",
+              "name": "'$SCHEMATICS_WORKSPACE_NAME'",
               "type": [
                 "terraform_v0.13"
               ],
@@ -139,6 +143,7 @@ spec:
               "template_data": [
                 {
                   "type": "terraform_v0.13",
+                  "folder": "terraform",
                   "variablestore": [
                     {
                       "name": "apikey",
@@ -163,10 +168,10 @@ spec:
             }' > /tmp/workspace-update.json
 
             SCHEMATICS_WORKSPACE_LIST_JSON=$(ibmcloud schematics workspace list --output json)
-            SCHEMATICS_WORKSPACE_ID=$(echo $SCHEMATICS_WORKSPACE_LIST_JSON | jq -r '.workspaces | .[] | select(.resource_group=="$(params.resource-group)" and .name=="$(params.resource-prefix)-schematics") | .id')
+            SCHEMATICS_WORKSPACE_ID=$(echo $SCHEMATICS_WORKSPACE_LIST_JSON | jq -r '.workspaces | .[] | select(.resource_group=="$(params.resource-group)" and .name=="'$SCHEMATICS_WORKSPACE_NAME'") | .id')
             if [[ -z "$SCHEMATICS_WORKSPACE_ID" ]]; then
               echo "Workspace $SCHEMATICS_WORKSPACE_NAME not found"
-              WORKSPACE_JSON=$(ibmcloud schematics workspace new --file /tmp/new-workspace.json --output json)
+              WORKSPACE_JSON=$(ibmcloud schematics workspace new --file /tmp/workspace-update.json --output json)
               SCHEMATICS_WORKSPACE_ID=$(echo $WORKSPACE_JSON | jq -r .id)
             else
               echo "Workspace already exists"
