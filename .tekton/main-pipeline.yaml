@@ -118,11 +118,8 @@ spec:
           value: $(params.resource-group)
         - name: region
           value: $(params.region)
-        - name: pipeline-debug
-          value: "1"
         - name: script
           value: |
-
             SCHEMATICS_WORKSPACE_NAME="$(params.resource-prefix)-schematics"
             echo '{
               "name": "'$SCHEMATICS_WORKSPACE_NAME'",
@@ -177,10 +174,49 @@ spec:
               echo "Workspace already exists"
               ibmcloud schematics workspace update --id $SCHEMATICS_WORKSPACE_ID --file /tmp/workspace-update.json
             fi
-            echo "SCHEMATICS_WORKSPACE_ID=$SCHEMATICS_WORKSPACE_ID"
-            echo -n "$SCHEMATICS_WORKSPACE_ID" > $(results.workspace-id.path)
-      results:
-        - name: workspace-id
+            echo "$SCHEMATICS_WORKSPACE_ID" > /artifacts/workspace-id.json
       workspaces:
       - name: artifacts
         workspace: pipeline-pvc
+    - name: apply-schematics-workspace
+      taskRef:
+        name: ibmcloud-cli
+      runAfter: [create-or-update-schematics-workspace]
+      params:
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: region
+          value: $(params.region)
+        - name: script
+          value: |
+            SCHEMATICS_WORKSPACE_ID=$(cat /artifacts/workspace-id.json)
+            ACTIVITY=$(ibmcloud terraform plan -id $SCHEMATICS_WORKSPACE_ID --json)
+            ACTIVITY_ID=$(echo $ACTIVITY | jq -r ".activityid")
+            echo "Activity ID   $ACTIVITY_ID"
+            # poll until status is no longer INPROGRESS, or if there is an error
+            while :
+            do
+              STATUS=$(ibmcloud terraform workspace action --id $SCHEMATICS_WORKSPACE_ID --act-id $ACTIVITY_ID --json)
+              
+              RET_VAL=$?
+              if [ $RET_VAL -ne 0 ]; then
+                echo $STATUS
+                exit $RET_VAL
+              else
+                STATUS_VALUE=$(echo $STATUS | jq -r ".status")
+                echo "Polling for status: $STATUS_VALUE"
+                if [ "$STATUS_VALUE" = "FAILED" ]; then 
+                  ibmcloud terraform logs --id $SCHEMATICS_WORKSPACE_ID --act-id $ACTIVITY_ID
+                  exit 1
+                elif [ "$STATUS_VALUE" != "INPROGRESS" ] && [ "$STATUS_VALUE" != "CREATED" ]; then  
+                  break
+                fi
+              fi
+              # sleep for 5 seconds, while waiting for completion
+              sleep 5
+            done
+            ibmcloud terraform logs --id $SCHEMATICS_WORKSPACE_ID --act-id $ACTIVITY_ID
+      workspaces:
+      - name: artifacts
+        workspace: pipeline-pvc
+
