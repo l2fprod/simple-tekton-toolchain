@@ -112,7 +112,7 @@ spec:
     - name: create-or-update-schematics-workspace
       taskRef:
         name: ibmcloud-cli
-      runAfter: [create-schematics-workspace]
+      runAfter: [clone-repo]
       params:
         - name: resource-group
           value: $(params.resource-group)
